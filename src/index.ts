@@ -48,6 +48,71 @@ app.post('/api/shorten', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/health', (req: Request, res: Response) => {
+  res.send('<h1>Server running</h1>');
+});
+
+app.delete('/api/links/:short_code', async (req: Request, res: Response) => {
+  const { short_code } = req.params;
+
+  try {
+    await prisma.link.delete({
+      where: {
+        short_code: short_code as string,
+      },
+    });
+  } catch (error) {
+    // Verificamos si es un error conocido de Prisma
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // P2025 es el código para "An operation failed because it depends on one or more records that were not found"
+      if (error.code === 'P2025') {
+        return res.status(404).json({
+          status: 'error',
+          message: 'The provided code does not exist.',
+        });
+      }
+    }
+
+    // Si es otro tipo de error, entonces sí es un 500
+    console.error(error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Internal server error',
+    });
+  }
+
+  res.status(204).json({ message: 'link deteled succesfully' });
+});
+
+app.get('/api/links', async (req: Request, res: Response) => {
+  try {
+    const links = await prisma.link.findMany({
+      select: {
+        short_code: true,
+        original_url: true,
+        clicks: true,
+      },
+    });
+
+    const linksFormatted: FormattedLink[] = links.map((link) => {
+      const { short_code, ...rest } = link;
+
+      return {
+        short_url: `${process.env['DOMAIN_NAME']}/${short_code}`,
+        ...rest,
+      };
+    });
+
+    res.json(linksFormatted);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal server error',
+    });
+  }
+});
+
 app.get('/:id', async (req: Request, res: Response) => {
   const id = String(req.params.id);
   const ip_address =
@@ -84,71 +149,6 @@ app.get('/:id', async (req: Request, res: Response) => {
       message: 'Internal server error',
     });
   }
-});
-
-app.get('/api/links', async (req: Request, res: Response) => {
-  try {
-    const links = await prisma.link.findMany({
-      select: {
-        short_code: true,
-        original_url: true,
-        clicks: true,
-      },
-    });
-
-    const linksFormatted: FormattedLink[] = links.map((link) => {
-      const { short_code, ...rest } = link;
-
-      return {
-        short_url: `${process.env['DOMAIN_NAME']}/${short_code}`,
-        ...rest,
-      };
-    });
-
-    res.json(linksFormatted);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      status: 'error',
-      message: 'Internal server error',
-    });
-  }
-});
-
-app.delete('/api/links/:short_code', async (req: Request, res: Response) => {
-  const { short_code } = req.params;
-
-  try {
-    await prisma.link.delete({
-      where: {
-        short_code: short_code as string,
-      },
-    });
-  } catch (error) {
-    // Verificamos si es un error conocido de Prisma
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // P2025 es el código para "An operation failed because it depends on one or more records that were not found"
-      if (error.code === 'P2025') {
-        return res.status(404).json({
-          status: 'error',
-          message: 'The provided code does not exist.',
-        });
-      }
-    }
-
-    // Si es otro tipo de error, entonces sí es un 500
-    console.error(error);
-    return res.status(500).json({
-      status: 'error',
-      message: 'Internal server error',
-    });
-  }
-
-  res.status(204).json({ message: 'link deteled succesfully' });
-});
-
-app.get('/health', (req: Request, res: Response) => {
-  res.send('<h1>Server running</h1>');
 });
 
 app.listen(PORT, async () => {

@@ -206,14 +206,6 @@ Compatible con VS Code REST Client, Insomnia y Postman.
 - Separacion del cliente DB en src/lib/prisma.ts.
 - API simple y extensible para evolucionar a features de negocio.
 
-## Roadmap
-
-- Validacion robusta de URLs con Zod.
-- Estrategia anti-colision para short_code.
-- Tests unitarios e integracion (supertest + framework de test).
-- Rate limiting y hardening de seguridad.
-- CI/CD para build y despliegue automatizado.
-
 ## Autor
 
 Proyecto desarrollado por Aaron como muestra de habilidades backend orientadas a producto.

@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Link {
+  id           String         @id @default(cuid())
+  short_code   String      @unique
+  original_url String
+  clicks       Int         @default(0)
+  created_at   DateTime    @default(now())
+  access_logs  AccessLog[]
+
+  @@map("links")
+}
+
+model AccessLog {
+  id          Int      @id @default(autoincrement())
+  ip_address  String
+  user_agent  String
+  accessed_at DateTime @default(now())
+  link_id     String
+  link        Link     @relation(fields: [link_id], references: [id], onDelete: Cascade)
+
+  @@map("access_logs")
+}

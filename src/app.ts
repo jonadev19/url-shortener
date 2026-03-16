@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import express, { Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import { apiReference } from '@scalar/express-api-reference';
 import { prisma } from './lib/prisma';
 
@@ -7,7 +7,7 @@ import { FormattedLink } from './types/links';
 import { Prisma } from './generated/prisma/client';
 import { getOpenApiSpec } from './openapi';
 
-const app = express();
+const app: Express = express();
 app.use(express.json());
 
 app.use(

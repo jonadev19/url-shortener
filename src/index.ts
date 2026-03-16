@@ -5,7 +5,7 @@ import { prisma } from './lib/prisma';
 
 import { FormattedLink } from './types/links';
 import { Prisma } from './generated/prisma/client';
-import { openApiSpec } from './openapi';
+import { getOpenApiSpec } from './openapi';
 
 const app = express();
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(
   '/docs',
   apiReference({
     theme: 'moon',
-    spec: { content: openApiSpec },
+    spec: { content: getOpenApiSpec() },
   }),
 );
 

@@ -1,4 +1,4 @@
-export const openApiSpec = {
+export const getOpenApiSpec = () => ({
   openapi: '3.1.0',
   info: {
     title: 'URL Shortener API',
@@ -6,10 +6,9 @@ export const openApiSpec = {
     description: 'API for creating, managing, and resolving shortened URLs.',
   },
   servers: [
-    {
-      url: 'http://localhost:3000',
-      description: 'Local development server',
-    },
+    ...(process.env['NODE_ENV'] === 'production'
+      ? [{ url: 'https://short.jonathandev.me', description: 'Production server' }]
+      : [{ url: 'http://localhost:3000', description: 'Local development server' }]),
   ],
   paths: {
     '/api/shorten': {
@@ -214,4 +213,4 @@ export const openApiSpec = {
       },
     },
   },
-};
+});

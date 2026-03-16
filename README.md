@@ -150,7 +150,7 @@ pnpm install
 2. Levantar PostgreSQL con Docker.
 
 ```bash
-docker compose up -d
+docker compose -f docker-compose.dev.yml up -d
 ```
 
 3. Crear y configurar .env.

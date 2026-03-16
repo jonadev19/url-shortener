@@ -37,5 +37,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   },
-  "exclude": ["prisma.config.ts", "node_modules", "dist", ".dockerignore"]
+  "exclude": ["prisma.config.ts", "vitest.config.ts", "node_modules", "dist", ".dockerignore"]
 }

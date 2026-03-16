@@ -1,13 +1,27 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
+import { apiReference } from '@scalar/express-api-reference';
 import { prisma } from './lib/prisma';
 
 import { FormattedLink } from './types/links';
 import { Prisma } from './generated/prisma/client';
+import { openApiSpec } from './openapi';
 
 const app = express();
 app.use(express.json());
 const PORT = 3000;
+
+app.use(
+  '/docs',
+  apiReference({
+    theme: 'moon',
+    spec: { content: openApiSpec },
+  }),
+);
+
+app.get('/favicon.ico', (req: Request, res: Response) => {
+  res.status(204).end();
+});
 
 app.get('/', (req: Request, res: Response) => {
   res.send(

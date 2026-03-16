@@ -40,6 +40,7 @@ Este proyecto demuestra competencias clave de backend orientadas a producto:
 | Contenedores   | Docker                      | Entornos reproducibles              |
 | Reverse proxy  | Traefik                     | Enrutamiento en despliegue          |
 | Calidad        | ESLint + typescript-eslint  | Estandar de codigo                  |
+| Documentacion  | Scalar (@scalar/express-api-reference) | UI interactiva para la API |
 
 ## Arquitectura
 
@@ -110,6 +111,7 @@ prisma/
 | GET    | /api/links             | Lista links + clicks   | 200 / 500          |
 | DELETE | /api/links/:short_code | Elimina link           | 204 / 404 / 500    |
 | GET    | /health                | Health check simple    | 200                |
+| GET    | /docs                  | Documentacion Scalar   | 200                |
 
 Ejemplo de creacion:
 

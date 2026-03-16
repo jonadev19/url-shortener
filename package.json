@@ -31,6 +31,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
+    "@scalar/express-api-reference": "^0.9.3",
     "express": "^5.2.1",
     "pg": "^8.20.0"
   }

@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="C4 Component" id="c4-component">
+    <mxGraphModel dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Component Diagram — Express API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="30" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Boundary: Express API -->
+        <mxCell id="boundary" value="&lt;b&gt;Express API (src/)&lt;/b&gt;" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.lean_mapping.electronic_info_flow_edge;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#444444;strokeWidth=2;dashed=1;verticalAlign=top;fontSize=14;fontStyle=1;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="820" height="540" as="geometry" />
+        </mxCell>
+
+        <!-- Component: index.ts -->
+        <mxCell id="index" value="&lt;b&gt;index.ts&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[Entry point]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Arranca el servidor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="100" y="280" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Component: app.ts -->
+        <mxCell id="app" value="&lt;b&gt;app.ts&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[Router / Controller]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Define rutas HTTP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="340" y="280" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Component: openapi.ts -->
+        <mxCell id="openapi" value="&lt;b&gt;openapi.ts&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[OpenAPI Spec]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Spec OpenAPI 3.0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="580" y="150" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Component: /docs (Scalar) -->
+        <mxCell id="scalar" value="&lt;b&gt;/docs&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[API Reference]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Docs interactiva (Scalar)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="580" y="280" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Component: lib/prisma.ts -->
+        <mxCell id="prismaLib" value="&lt;b&gt;lib/prisma.ts&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[DB Client]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Singleton Prisma" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="580" y="420" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Component: types/links.ts -->
+        <mxCell id="types" value="&lt;b&gt;types/links.ts&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[Types]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Tipos de respuesta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="340" y="460" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ContainerDb: PostgreSQL (outside boundary) -->
+        <mxCell id="db" value="&lt;b&gt;PostgreSQL 15&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[Base de datos]&lt;/i&gt;&lt;br&gt;&lt;br&gt;links, access_logs" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="590" y="680" width="140" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: index -> app -->
+        <mxCell id="rel1" value="Monta" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="index" target="app" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: app -> openapi -->
+        <mxCell id="rel2" value="Obtiene spec" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="app" target="openapi" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: app -> scalar -->
+        <mxCell id="rel3" value="Sirve /docs" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="app" target="scalar" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: app -> prismaLib -->
+        <mxCell id="rel4" value="DB ops" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="app" target="prismaLib" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: app -> types -->
+        <mxCell id="rel5" value="Formatea respuestas" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="app" target="types" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: prismaLib -> db -->
+        <mxCell id="rel6" value="TCP / SQL" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="prismaLib" target="db" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -48,67 +48,17 @@ Los diagramas completos están en [`docs/`](./docs/).
 
 ### Nivel 1 — System Context
 
-```mermaid
-C4Context
-    title System Context — URL Shortener
-
-    Person(user, "Usuario", "Cualquier cliente que consume la API via HTTP")
-
-    System(urlShortener, "URL Shortener API", "Acorta URLs, redirige tráfico y registra métricas de uso")
-
-    System_Ext(browser, "Navegador / Cliente HTTP", "Hace requests REST o sigue redirecciones 302")
-    System_Ext(postgres, "PostgreSQL", "Base de datos relacional externa gestionada por Docker")
-
-    Rel(browser, urlShortener, "Envía requests HTTP", "REST / HTTP 302")
-    Rel(urlShortener, postgres, "Lee y escribe datos", "TCP / Prisma Client")
-    Rel(user, browser, "Usa")
-```
+![C4 Context](./docs/c4-context.svg)
 
 ### Nivel 2 — Container
 
-```mermaid
-C4Container
-    title Container Diagram — URL Shortener
-
-    Person(user, "Usuario", "Cliente que consume la API")
-
-    System_Boundary(sys, "URL Shortener") {
-        Container(traefik, "Traefik", "Reverse Proxy", "Punto de entrada HTTP/HTTPS. Enruta tráfico al contenedor API")
-        Container(api, "Express API", "Node.js + TypeScript", "Maneja rutas REST: acortar URLs, redirigir, listar y eliminar links")
-        Container(prisma, "Prisma Client", "ORM (TypeScript)", "Abstrae el acceso a PostgreSQL con tipado fuerte y migraciones")
-        ContainerDb(db, "PostgreSQL 15", "Base de datos relacional", "Persiste links (short_code, original_url, clicks) y access_logs")
-    }
-
-    Rel(user, traefik, "Envía request HTTP/HTTPS", "REST")
-    Rel(traefik, api, "Enruta el tráfico", "HTTP")
-    Rel(api, prisma, "Consulta y escribe datos", "TypeScript API")
-    Rel(prisma, db, "Ejecuta queries", "TCP / SQL")
-```
+![C4 Container](./docs/c4-container.svg)
 
 ### Nivel 3 — Component
 
-```mermaid
-C4Component
-    title Component Diagram — Express API
+![C4 Component](./docs/c4-component.svg)
 
-    Container_Boundary(api, "Express API (src/)") {
-        Component(index, "index.ts", "Entry point", "Inicializa el servidor Express y escucha en el puerto configurado")
-        Component(app, "app.ts", "Router / Controller", "Define y maneja todas las rutas HTTP de la API")
-        Component(openapi, "openapi.ts", "OpenAPI Spec", "Genera la especificación OpenAPI 3.0 de la API")
-        Component(scalar, "Scalar UI (/docs)", "API Reference", "Sirve la documentación interactiva de la API")
-        Component(prismaLib, "lib/prisma.ts", "DB Client", "Instancia singleton del Prisma Client con adapter PostgreSQL")
-        Component(types, "types/links.ts", "Types", "Define los tipos TypeScript de respuesta para los endpoints de links")
-    }
-
-    ContainerDb(db, "PostgreSQL 15", "Base de datos", "Tablas: links, access_logs")
-
-    Rel(index, app, "Importa y monta")
-    Rel(app, prismaLib, "Usa para todas las operaciones de datos")
-    Rel(app, openapi, "Obtiene spec para Scalar")
-    Rel(app, scalar, "Sirve en /docs")
-    Rel(app, types, "Usa para formatear respuestas")
-    Rel(prismaLib, db, "Conecta via TCP")
-```
+> Los archivos fuente editables están en [`docs/`](./docs/) con extensión `.drawio`.
 
 ## Estructura del proyecto
 

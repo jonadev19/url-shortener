@@ -1,0 +1,51 @@
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="C4 Context" id="c4-context">
+    <mxGraphModel dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="System Context — URL Shortener" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="30" width="500" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Person: Usuario -->
+        <mxCell id="person1" value="&lt;b&gt;Usuario&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[Person]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Consume la API via HTTP" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;fillColor=#08427B;fontColor=#ffffff;strokeColor=#073763;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="140" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- System: URL Shortener API -->
+        <mxCell id="sys1" value="&lt;b&gt;URL Shortener API&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Acorta URLs, redirige y mide clics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0E52A2;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="290" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- External: Cliente HTTP -->
+        <mxCell id="ext1" value="&lt;b&gt;Cliente HTTP&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[External System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;REST o redirecciones 302" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6C6C6C;fontColor=#ffffff;strokeColor=#525252;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- External: PostgreSQL -->
+        <mxCell id="ext2" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;&lt;i style='font-size:11px'&gt;[External System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Persistencia relacional" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6C6C6C;fontColor=#ffffff;strokeColor=#525252;fontSize=12;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="760" y="290" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: Usuario -> Sistema -->
+        <mxCell id="rel1" value="Usa" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="person1" target="sys1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: Cliente HTTP -> Sistema -->
+        <mxCell id="rel2" value="HTTP REST / 302" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="ext1" target="sys1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Rel: Sistema -> PostgreSQL -->
+        <mxCell id="rel3" value="Lee / escribe (Prisma)" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#444444;fontColor=#333333;fontSize=11;endArrow=block;endFill=1;" edge="1" source="sys1" target="ext2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
